@@ -19,7 +19,7 @@ A SQL-like query language for JSON objects.
 
 ## Example
 
-### Data Source:
+#### Data Source:
 ```javascript
 var dataSource = {
     '4866102f06de4f38bc30592e001cf423': {
@@ -66,13 +66,13 @@ var dataSource = {
     }
 };  
 ```
-### Query by jsonSQL:
+#### Query by jsonSQL:
 ```javascript
 var Query = require('jsonSQL');
 var res = Query(dataSource, '* where holy.name=CRAP || (holy.name=CREEPY && (state=1 || state=2))');
 console.log('======RESULT 1\n',res);
 ```
-### RESULT OUTPUT:
+#### RESULT OUTPUT:
 
 ```bash
 ======RESULT 1
