@@ -2,7 +2,7 @@
 A SQL-like query language for JSON objects.
 
 ## Install
-`npm install jsonSQL`
+`npm install jsonsql`
 
 ## Semantics
 
