@@ -6,16 +6,16 @@ A SQL-like query language for JSON objects.
 
 ## Semantics
 
-* ALL FIELDS `*`
-* RESULT SUBSET `*.second_lvl.third_lvl`
-* CONDITION `where`
+* All Fields `*`
+* Result Subset `*.second_lvl.third_lvl`
+* Condition `where`
 * AND `&&`
 * OR `||`
-* GROUP `()`
+* Group `()`
 * Equal `=`
 * Not Equal `!=`
-* LIKE `~`
-* Not LIKE `!~`
+* Like `~`
+* Not Like `!~`
 
 ## Example
 
@@ -74,6 +74,7 @@ console.log('======RESULT 1\n',res);
 ```
 ### RESULT OUTPUT:
 
+```bash
 ======RESULT 1
  [ { beat: {},
     holy: { addr: '88:63:df:a0:d7:03', name: 'CREEPY' },
@@ -93,3 +94,4 @@ console.log('======RESULT 1\n',res);
     config: {},
     id: 'cff9580b2efa4a2ba84784c1ac80eb09',
     state: 1 } ]
+```
