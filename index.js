@@ -16,7 +16,7 @@ var AND = '&&'
         pathway: [],
         groups: {}
     }
-    , lexicalities = {}
+    , AST = {}
     , options = {};
 
 function Tokenize(query) {
@@ -45,7 +45,7 @@ function Tokenize(query) {
         }
         current += 1;
     }
-    LogicalGrouping(lexicalities, where);
+    LogicalGrouping(AST, where);
 }
 function LogicalGrouping(current, where) {
     var lastAnd = __findIndex(where, AND),
@@ -72,7 +72,7 @@ function LogicalGrouping(current, where) {
                 current.push(where);
             else
                 current.or = [where];
-            ExtractExpression(lexicalities.or ? lexicalities.or : lexicalities.and)
+            ExtractExpression(AST.or ? AST.or : AST.and)
         }
     }
 }
@@ -154,59 +154,58 @@ function __iterate(obj) {
         }
     }
 }
-function FilterOR(lexicality, row) {
+function FilterOR(ASTNode, row) {
     var res = false;
-    for (var k in lexicality) {
+    for (var k in ASTNode) {
         var filterFunc = (k === AND_STR ? FilterAND : (k === OR_STR ? FilterOR : Filter));
-        res = res || filterFunc(lexicality[k], row);
+        res = res || filterFunc(ASTNode[k], row);
         if(options.trace)
-            console.log(synopsis.step, '======((( or', lexicality[k], res);
+            console.log(synopsis.step, '======((( or', ASTNode[k], res);
         if (res) return res;
     }
     return res;
 }
-function FilterAND(lexicality, row) {
+function FilterAND(ASTNode, row) {
     var res = true;
-    for (var k in lexicality) {
+    for (var k in ASTNode) {
         var filterFunc = (k === AND_STR ? FilterAND : (k === OR_STR ? FilterOR : Filter));
-        res = res && filterFunc(lexicality[k], row);
+        res = res && filterFunc(ASTNode[k], row);
         if(options.trace)
-            console.log(synopsis.step, '======((( and', lexicality[k], res);
+            console.log(synopsis.step, '======((( and', ASTNode[k], res);
         if (!res) return res;
     }
     return res;
 }
-function Filter(lexicality, row) {
+function Filter(ASTNode, row) {
     synopsis.step += 1;
-    //console.log(synopsis.level, 'lexicality', lexicality);
-    if (lexicality.or) {
-        var res = FilterOR(lexicality.or, row);
+    if (ASTNode.or) {
+        var res = FilterOR(ASTNode.or, row);
         if(options.trace)
-            console.log(synopsis.step, 'OR', lexicality, res);
+            console.log(synopsis.step, 'OR', ASTNode, res);
         return res;
-    } else if (lexicality.and) {
-        var res = FilterAND(lexicality.and, row);
+    } else if (ASTNode.and) {
+        var res = FilterAND(ASTNode.and, row);
         if(options.trace)
-            console.log(synopsis.step, 'AND', lexicality, res);
+            console.log(synopsis.step, 'AND', ASTNode, res);
         return res;
-    } else if (typeof lexicality === 'object') {
-        if (lexicality.eq) { // =
-            return __hierarchize(row, lexicality.eq[0]) === lexicality.eq[1];
-        } else if (lexicality.ne) { // !=
-            return __hierarchize(row, lexicality.ne[0]) !== lexicality.ne[1];
-        } else if (lexicality.req) { // ~
-            return __contains(__hierarchize(row, lexicality.req[0]), lexicality.req[1]);
-        } else if (lexicality.nreq) { // ~
-            return !__contains(__hierarchize(row, lexicality.nreq[0]), lexicality.nreq[1]);
+    } else if (typeof ASTNode === 'object') {
+        if (ASTNode.eq) { // =
+            return __hierarchize(row, ASTNode.eq[0]) === ASTNode.eq[1];
+        } else if (ASTNode.ne) { // !=
+            return __hierarchize(row, ASTNode.ne[0]) !== ASTNode.ne[1];
+        } else if (ASTNode.req) { // ~
+            return __contains(__hierarchize(row, ASTNode.req[0]), ASTNode.req[1]);
+        } else if (ASTNode.nreq) { // ~
+            return !__contains(__hierarchize(row, ASTNode.nreq[0]), ASTNode.nreq[1]);
         } else {
-            return Filter(lexicality, row);
+            return Filter(ASTNode, row);
         }
     }
 }
 function Parse(dataSource) {
     var result = [];
     for (var k in dataSource)
-        if (Filter(lexicalities, dataSource[k]))
+        if (Filter(AST, dataSource[k]))
             result.push(dataSource[k]);
     return result;
 }
@@ -224,7 +223,7 @@ function Query(dataSource, query, opts) {
         groups: {},
         step: 0
     };
-    lexicalities = {};
+    AST = {};
     opts = opts || {
         trace :false
     };
