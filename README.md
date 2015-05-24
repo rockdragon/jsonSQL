@@ -6,16 +6,16 @@ A SQL-like query language for JSON objects.
 
 ## Semantics
 
-* #### ALL FIELDS `*`
-* #### RESULT SUBSET `*.second_lvl.third_lvl`
-* #### CONDITION `where`
-* #### AND `&&`
-* #### OR `||`
-* #### GROUP `()`
-* #### Equal `=`
-* #### Not Equal `!=`
-* #### LIKE `~`
-* #### Not LIKE `!~`
+* ALL FIELDS `*`
+* RESULT SUBSET `*.second_lvl.third_lvl`
+* CONDITION `where`
+* AND `&&`
+* OR `||`
+* GROUP `()`
+* Equal `=`
+* Not Equal `!=`
+* LIKE `~`
+* Not LIKE `!~`
 
 ## Example
 
