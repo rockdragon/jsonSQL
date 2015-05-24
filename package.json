@@ -1,0 +1,20 @@
+{
+  "name": "jsonSQL",
+  "version": "0.0.1",
+  "description" : "A SQL-like query language for JSON objects.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rockdragon/jsonSQL.git"
+  },
+  "keywords": [
+    "query",
+    "JSON",
+    "SQL",
+    "javascript",
+    "object",
+    "DSL"
+  ],
+  "author": "Mo Ye <moyerock@gmail.com> (http://www.moye.me/)",
+  "license": "MIT"
+}
