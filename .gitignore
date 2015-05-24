@@ -15,13 +15,28 @@ coverage
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
-
-# node-waf configuration
-.lock-wscript
+.tscache
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directory
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+# Commenting this out is preferred by some people, see
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
+
+# Users Environment Variables
+.lock-wscript
+
+.DS_Store
+.idea/
+*.map
+*.dll
+*.exe
+bin/
+obj/
+_Releases/
+*.ldb
+*.dat
+
+secret.json
