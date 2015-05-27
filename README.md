@@ -95,3 +95,15 @@ console.log('======RESULT 1\n',res);
     id: 'cff9580b2efa4a2ba84784c1ac80eb09',
     state: 1 } ]
 ```
+
+#### Multi-Fields Query:
+```javascript
+var res = Query(dataSource, '*.id, *.holy.addr where holy.name=CRAP');
+console.log('======RESULT 2\n',res);
+```
+#### RESULT OUTPUT:
+```bash
+======RESULT 2
+ [ { id: 'cff9580b2efa4a2ba84784c1ac80eb09',
+    'holy.addr': '7f:e8:ee:32:cd:15' } ]
+```
