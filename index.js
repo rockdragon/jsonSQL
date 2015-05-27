@@ -8,6 +8,7 @@ var AND = '&&'
     , NOTEQUAL = NOT + EQUAL
     , NOTLIKE = NOT + LIKE
     , WILDCARD = '*'
+    , COMMA = ','
     , DELIMITER = '.'
     , LEFT = '('
     , RIGHT = ')'
@@ -24,9 +25,14 @@ function Tokenize(query) {
     var pathway = parts[0];
     var where = parts[1];
 
-    synopsis.pathway = __splitTrim(pathway, DELIMITER);
-    if (synopsis.pathway[0] == WILDCARD)
-        synopsis.pathway.shift();
+    synopsis.pathway = __splitTrim(pathway, COMMA);
+    for (var i = 0, len = synopsis.pathway.length; i < len; i++) {
+        synopsis.pathway[i] = __splitTrim(synopsis.pathway[i], DELIMITER);
+        if (synopsis.pathway[i][0] == WILDCARD)
+            synopsis.pathway[i].shift();
+        if(synopsis.pathway[i].length === 0)
+            synopsis.pathway.splice(i, 1);
+    }
 
     var lastLeft = -1,
         lastRight = -1,
@@ -143,23 +149,13 @@ function __hierarchize(obj, dottedPath) {
             return '';
     return res.toString();
 }
-function __iterate(obj) {
-    for (var k in obj) {
-        if (obj.hasOwnProperty(k)) {
-            if (!Array.isArray(obj[k]) && typeof obj[k] === 'object') {
-                __iterate(obj[k]);
-            } else {
-                console.log(k, ':', obj[k]);
-            }
-        }
-    }
-}
+
 function FilterOR(ASTNode, row) {
     var res = false;
     for (var k in ASTNode) {
         var filterFunc = (k === AND_STR ? FilterAND : (k === OR_STR ? FilterOR : Filter));
         res = res || filterFunc(ASTNode[k], row);
-        if(options.trace)
+        if (options.trace)
             console.log(synopsis.step, '======((( or', ASTNode[k], res);
         if (res) return res;
     }
@@ -170,7 +166,7 @@ function FilterAND(ASTNode, row) {
     for (var k in ASTNode) {
         var filterFunc = (k === AND_STR ? FilterAND : (k === OR_STR ? FilterOR : Filter));
         res = res && filterFunc(ASTNode[k], row);
-        if(options.trace)
+        if (options.trace)
             console.log(synopsis.step, '======((( and', ASTNode[k], res);
         if (!res) return res;
     }
@@ -180,12 +176,12 @@ function Filter(ASTNode, row) {
     synopsis.step += 1;
     if (ASTNode.or) {
         var res = FilterOR(ASTNode.or, row);
-        if(options.trace)
+        if (options.trace)
             console.log(synopsis.step, 'OR', ASTNode, res);
         return res;
     } else if (ASTNode.and) {
         var res = FilterAND(ASTNode.and, row);
-        if(options.trace)
+        if (options.trace)
             console.log(synopsis.step, 'AND', ASTNode, res);
         return res;
     } else if (typeof ASTNode === 'object') {
@@ -211,8 +207,14 @@ function Parse(dataSource) {
 }
 function Fields(result) {
     if (result && synopsis.pathway.length > 0) {
+        //console.log(synopsis.pathway);
         return result.map(function (ele) {
-            return __hierarchize(ele, synopsis.pathway.join('.'));
+            var res = {};
+            for(var i = 0, len = synopsis.pathway.length; i< len; i++){
+                var key  = synopsis.pathway[i].join(DELIMITER);
+                res[key] =  __hierarchize(ele, key);
+            }
+            return res;
         });
     }
     return result;
@@ -225,7 +227,7 @@ function Query(dataSource, query, opts) {
     };
     AST = {};
     opts = opts || {
-        trace :false
+        trace: false
     };
     options = opts;
     Tokenize(query);

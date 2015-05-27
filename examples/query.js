@@ -199,10 +199,22 @@ var dataSource = {
     }
 };
 
+function __iterate(obj) {
+    for (var k in obj) {
+        if (obj.hasOwnProperty(k)) {
+            if (!Array.isArray(obj[k]) && typeof obj[k] === 'object') {
+                __iterate(obj[k]);
+            } else {
+                console.log(k, ':', obj[k]);
+            }
+        }
+    }
+}
+
 
 var Query = require('../index');
 var res = Query(dataSource, '* where holy.name=CRAP || (holy.name=CREEPY && (state=1 || state=2))');
 console.log('======RESULT 1\n',res);
 
-var res = Query(dataSource, '*.id where holy.name=CRAP');
+var res = Query(dataSource, '*.id, *.holy.addr where holy.name=CRAP');
 console.log('======RESULT 2\n',res);
