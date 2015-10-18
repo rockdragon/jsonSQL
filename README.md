@@ -66,6 +66,7 @@ var dataSource = {
     }
 };  
 ```
+- - -
 #### Query by jsonSQL:
 ```javascript
 var Query = require('jsonSQL');
@@ -95,7 +96,7 @@ console.log('======RESULT 1\n',res);
     id: 'cff9580b2efa4a2ba84784c1ac80eb09',
     state: 1 } ]
 ```
-
+- - -
 #### Multi-Fields Query:
 ```javascript
 var res = Query(dataSource, '*.id, *.holy.addr where holy.name=CRAP');
