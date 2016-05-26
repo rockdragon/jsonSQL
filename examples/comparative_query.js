@@ -17,8 +17,8 @@ var dataSource = {
 };
 
 var Query = require('../index');
-//var res = Query(dataSource, '* where age<=30');
-//console.log('======RESULT 1\n',res);
+var res = Query(dataSource, '* where age<=30');
+console.log('======RESULT 1\n',res);
 
-var res = Query(dataSource, '* where birth.valueOf()>' + new Date(2015,1,1).valueOf());
+var res = Query(dataSource, '* where birth>' + new Date(2015,1,1).valueOf());
 console.log('======RESULT 2\n',res);

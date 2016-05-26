@@ -25,6 +25,14 @@ var AND = '&&'
   , options = {};
 
 var print = console.log;
+function getObjectType(obj) {
+  return Object.prototype.toString.call(obj);
+}
+function isDate(obj) {
+  return getObjectType(obj) === '[object Date]';
+}
+
+// ------------------ splitter -------------------- //
 
 function Tokenize(query) {
   var parts = __splitTrim(query, WHERE);
@@ -186,7 +194,10 @@ function __hierarchize(obj, dottedPath) {
     else
       return '';
   }
-  return res.toString();
+  // support comparison for Date
+  if(isDate(res)) res = res.valueOf()
+  else res.toString();
+  return res
 }
 
 function FilterOR(ASTNode, row) {

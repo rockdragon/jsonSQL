@@ -17,7 +17,7 @@ A SQL-like query language for JSON objects.
 * Like `~`
 * Not Like `!~`
 
-## Example
+## Generic query
 
 #### Data Source:
 ```javascript
@@ -68,7 +68,7 @@ var dataSource = {
 ```
 
 - - -
-#### Query by jsonSQL:
+#### Query with condition:
 ```javascript
 var Query = require('jsonSQL');
 var res = Query(dataSource, '* where holy.name=CRAP || (holy.name=CREEPY && (state=1 || state=2))');
@@ -109,4 +109,57 @@ console.log('======RESULT 2\n',res);
 ======RESULT 2
  [ { id: 'cff9580b2efa4a2ba84784c1ac80eb09',
     'holy.addr': '7f:e8:ee:32:cd:15' } ]
+```
+
+## Comparsion
+
+#### Data Source:
+```javascript
+var dataSource = {
+  '4866102f06de4f38bc30592e001cf423': {
+    name: 'Tom',
+    age: 33,
+    birth: new Date(2016, 1, 1)
+  },
+  'd07872f7d2e8447bbe874bbfd3fb0296': {
+    name: 'Jack',
+    age: 18,
+    birth: new Date(2015, 1, 1)
+  },
+  'd935869b80f542a9bf3f6a59d4f635f1': {
+    name: 'Peter',
+    age: 26,
+    birth: new Date(2014, 1, 1)
+  },
+};
+```
+- - -
+#### Number comparison:
+```javascript
+var Query = require('../index');
+var res = Query(dataSource, '* where age<=30');
+console.log('======RESULT 1\n',res);
+```
+#### RESULT OUTPUT:
+```bash
+======RESULT 1
+ [ { name: 'Jack',
+    age: 18,
+    birth: Sun Feb 01 2015 00:00:00 GMT+0800 (CST) },
+  { name: 'Peter',
+    age: 26,
+    birth: Sat Feb 01 2014 00:00:00 GMT+0800 (CST) } ]
+```
+
+#### Date comparison:
+```javascript
+var res = Query(dataSource, '* where birth>' + new Date(2015,1,1).valueOf());
+console.log('======RESULT 2\n',res);
+```
+#### RESULT OUTPUT:
+```bash
+======RESULT 2
+ [ { name: 'Tom',
+    age: 33,
+    birth: Mon Feb 01 2016 00:00:00 GMT+0800 (CST) } ]
 ```
