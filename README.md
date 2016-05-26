@@ -24,7 +24,7 @@ npm install jsonsql
 
 ## Generic query
 
-#### Data Source:
+##### Data Source:
 ```javascript
 var dataSource = {
     '4866102f06de4f38bc30592e001cf423': {
@@ -73,13 +73,13 @@ var dataSource = {
 ```
 
 - - -
-#### Query with condition:
+##### Query with condition:
 ```javascript
 var Query = require('jsonSQL');
 var res = Query(dataSource, '* where holy.name=CRAP || (holy.name=CREEPY && (state=1 || state=2))');
 console.log('======RESULT 1\n',res);
 ```
-#### RESULT OUTPUT:
+##### RESULT OUTPUT:
 
 ```bash
 ======RESULT 1
@@ -104,12 +104,12 @@ console.log('======RESULT 1\n',res);
 ```
 
 - - -
-#### Multi-Fields Query:
+##### Multi-Fields Query:
 ```javascript
 var res = Query(dataSource, '*.id, *.holy.addr where holy.name=CRAP');
 console.log('======RESULT 2\n',res);
 ```
-#### RESULT OUTPUT:
+##### RESULT OUTPUT:
 ```bash
 ======RESULT 2
  [ { id: 'cff9580b2efa4a2ba84784c1ac80eb09',
@@ -118,7 +118,7 @@ console.log('======RESULT 2\n',res);
 
 ## Comparsion
 
-#### Data Source:
+##### Data Source:
 ```javascript
 var dataSource = {
   '4866102f06de4f38bc30592e001cf423': {
@@ -139,13 +139,13 @@ var dataSource = {
 };
 ```
 - - -
-#### Number comparison:
+##### Number comparison:
 ```javascript
 var Query = require('../index');
 var res = Query(dataSource, '* where age<=30');
 console.log('======RESULT 1\n',res);
 ```
-#### RESULT OUTPUT:
+##### RESULT OUTPUT:
 ```bash
 ======RESULT 1
  [ { name: 'Jack',
@@ -156,12 +156,12 @@ console.log('======RESULT 1\n',res);
     birth: Sat Feb 01 2014 00:00:00 GMT+0800 (CST) } ]
 ```
 
-#### Date comparison:
+##### Date comparison:
 ```javascript
 var res = Query(dataSource, '* where birth>' + new Date(2015,1,1).valueOf());
 console.log('======RESULT 2\n',res);
 ```
-#### RESULT OUTPUT:
+##### RESULT OUTPUT:
 ```bash
 ======RESULT 2
  [ { name: 'Tom',
