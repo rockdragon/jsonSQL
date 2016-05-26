@@ -1,8 +1,12 @@
 # jsonSQL
+
+[![https://www.npmjs.org/package/jsonSql](https://nodei.co/npm/jsonSql.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.org/package/jsonSql)
 A SQL-like query language for JSON objects.
 
 ## Install
-`npm install jsonsql`
+```
+npm install jsonsql
+```
 
 ## Semantics
 
