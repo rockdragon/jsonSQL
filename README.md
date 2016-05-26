@@ -141,7 +141,7 @@ var dataSource = {
 - - -
 ##### Number comparison:
 ```javascript
-var Query = require('../index');
+var Query = require('jsonSQL');
 var res = Query(dataSource, '* where age<=30');
 console.log('======RESULT 1\n',res);
 ```
@@ -158,6 +158,7 @@ console.log('======RESULT 1\n',res);
 
 ##### Date comparison:
 ```javascript
+var Query = require('jsonSQL');
 var res = Query(dataSource, '* where birth>' + new Date(2015,1,1).valueOf());
 console.log('======RESULT 2\n',res);
 ```
