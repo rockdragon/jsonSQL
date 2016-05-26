@@ -1,6 +1,7 @@
 # jsonSQL
 
-[![https://www.npmjs.org/package/jsonSql](https://nodei.co/npm/jsonSql.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.org/package/jsonSql)
+[![npm version](https://badge.fury.io/js/jsonsql.svg?branche=master)](http://badge.fury.io/js/jsonsql)
+
 A SQL-like query language for JSON objects.
 
 ## Install
