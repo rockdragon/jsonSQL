@@ -1,3 +1,5 @@
+var utils = require('./utils')
+
 var AND = '&&'
   , OR = '||'
   , AND_STR = 'and'
@@ -25,13 +27,6 @@ var AND = '&&'
   , options = {};
 
 var print = console.log;
-function getObjectType(obj) {
-  return Object.prototype.toString.call(obj);
-}
-function isDate(obj) {
-  return getObjectType(obj) === '[object Date]';
-}
-
 // ------------------ splitter -------------------- //
 
 function Tokenize(query) {
@@ -194,9 +189,11 @@ function __hierarchize(obj, dottedPath) {
     else
       return '';
   }
-  // support comparison for Date
-  if(isDate(res)) res = res.valueOf()
+  // support comparison for Date/DateString
+  if(utils.isDate(res)) res = res.valueOf()
+  else if(utils.isDateString(res)) res = utils.parseDateFromString(res)
   else res.toString();
+
   return res
 }
 
