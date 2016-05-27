@@ -169,3 +169,51 @@ console.log('======RESULT 2\n',res);
     age: 33,
     birth: Mon Feb 01 2016 00:00:00 GMT+0800 (CST) } ]
 ```
+
+##### Date string comparison:
+
+###### Data Source:
+```javascript
+var dataSource = [
+  {
+    "Version": "120",
+    "CreateDate": "2013-05-25T06:50:25.584Z",
+    "Desc": "abcdef"
+  },
+  {
+    "Version": "121",
+    "CreateDate": "2014-05-23T06:50:25.584Z",
+    "Desc": "dfdsf"
+  },
+  {
+    "Version": "122",
+    "CreateDate": "2015-05-26T06:50:25.584Z",
+    "Desc": "qewert"
+  },
+  {
+    "Version": "123",
+    "CreateDate": "2016-05-24T06:50:25.584Z",
+    "Desc": "xfsstd"
+  }
+];
+```
+##### query:
+```javascript
+var Query = require('../index');
+var res = Query(dataSource, '* where age<=30');
+console.log('======RESULT 1\n',res);
+```
+
+##### RESULT OUTPUT:
+```bash
+======RESULT 1
+ [ { Version: '121',
+    CreateDate: '2014-05-23T06:50:25.584Z',
+    Desc: 'dfdsf' },
+  { Version: '122',
+    CreateDate: '2015-05-26T06:50:25.584Z',
+    Desc: 'qewert' },
+  { Version: '123',
+    CreateDate: '2016-05-24T06:50:25.584Z',
+    Desc: 'xfsstd' } ]
+```
