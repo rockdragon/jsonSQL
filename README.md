@@ -199,8 +199,8 @@ var dataSource = [
 ```
 ##### query:
 ```javascript
-var Query = require('../index');
-var res = Query(dataSource, '* where age<=30');
+var Query = require('jsonSQL');
+var res = Query(dataSource, '* where CreateDate>' + new Date(2014,1,1).valueOf());
 console.log('======RESULT 1\n',res);
 ```
 
