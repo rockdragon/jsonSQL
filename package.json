@@ -1,6 +1,6 @@
 {
   "name": "jsonsql",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description" : "A SQL-like query language for JSON objects.",
   "main": "index.js",
   "repository": {

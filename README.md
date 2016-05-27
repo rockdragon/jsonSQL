@@ -73,7 +73,7 @@ var dataSource = {
 ```
 
 - - -
-##### Query with condition:
+#### Query with condition:
 ```javascript
 var Query = require('jsonSQL');
 var res = Query(dataSource, '* where holy.name=CRAP || (holy.name=CREEPY && (state=1 || state=2))');
@@ -104,7 +104,7 @@ console.log('======RESULT 1\n',res);
 ```
 
 - - -
-##### Multi-Fields Query:
+#### Multi-Fields Query:
 ```javascript
 var res = Query(dataSource, '*.id, *.holy.addr where holy.name=CRAP');
 console.log('======RESULT 2\n',res);
@@ -139,7 +139,7 @@ var dataSource = {
 };
 ```
 - - -
-##### Number comparison:
+#### Number comparison:
 ```javascript
 var Query = require('jsonSQL');
 var res = Query(dataSource, '* where age<=30');
@@ -170,9 +170,9 @@ console.log('======RESULT 2\n',res);
     birth: Mon Feb 01 2016 00:00:00 GMT+0800 (CST) } ]
 ```
 
-##### Date string comparison:
+#### Date string comparison:
 
-###### Data Source:
+##### Data Source:
 ```javascript
 var dataSource = [
   {
