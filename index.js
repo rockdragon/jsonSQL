@@ -192,7 +192,7 @@ function __hierarchize(obj, dottedPath) {
   // support comparison for Date/DateString
   if(utils.isDate(res)) res = res.valueOf()
   else if(utils.isDateString(res)) res = utils.parseDateFromString(res)
-  else res.toString();
+  else res = res.toString()
 
   return res
 }

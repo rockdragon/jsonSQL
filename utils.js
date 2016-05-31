@@ -10,6 +10,9 @@ function isString(obj) {
 function isDateString(obj) {
   return isString(obj) && !isNaN(Date.parse(obj))
 }
+function isNumber(obj) {
+  return typeof obj === 'number'
+}
 function parseDateFromString(str) {
   return Date.parse(str)
 }
@@ -19,4 +22,5 @@ module.exports = {
   isString: isString,
   isDateString: isDateString,
   parseDateFromString: parseDateFromString,
+  isNumber: isNumber
 }
