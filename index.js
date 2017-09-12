@@ -190,11 +190,11 @@ function __hierarchize(obj, dottedPath) {
       return '';
   }
   // support comparison for Date/DateString
-  if(utils.isDate(res)) res = res.valueOf()
+  /*if(utils.isDate(res)) res = res.valueOf()
   else if(utils.isDateString(res)) res = utils.parseDateFromString(res)
-  else res = res.toString()
+  else res = res.toString()*/
 
-  return res
+  return res.toString();
 }
 
 function FilterOR(ASTNode, row) {
@@ -241,13 +241,13 @@ function Filter(ASTNode, row) {
     } else if (ASTNode.nreq) { // ~
       return !__contains(__hierarchize(row, ASTNode.nreq[0]), ASTNode.nreq[1]);
     } else if (ASTNode.gt) { // >
-      return __hierarchize(row, ASTNode.gt[0]) > ASTNode.gt[1];
+      return parseFloat(__hierarchize(row, ASTNode.gt[0])) > parseFloat(ASTNode.gt[1]);
     } else if (ASTNode.ge) { // >=
-      return __hierarchize(row, ASTNode.ge[0]) >= ASTNode.ge[1];
+      return parseFloat(__hierarchize(row, ASTNode.ge[0])) >= parseFloat(ASTNode.ge[1]);
     } else if (ASTNode.lt) { // <
-      return __hierarchize(row, ASTNode.lt[0]) < ASTNode.lt[1];
+      return parseFloat(__hierarchize(row, ASTNode.lt[0])) < parseFloat(ASTNode.lt[1]);
     } else if (ASTNode.le) { // <=
-      return __hierarchize(row, ASTNode.le[0]) <= ASTNode.le[1];
+      return parseFloat(__hierarchize(row, ASTNode.le[0])) <= parseFloat(ASTNode.le[1]);
     } else {
       return Filter(ASTNode, row);
     }
