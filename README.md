@@ -1,6 +1,7 @@
 # jsonSQL
 
 [![npm version](https://badge.fury.io/js/jsonsql.svg?branche=master)](http://badge.fury.io/js/jsonsql)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frockdragon%2FjsonSQL.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frockdragon%2FjsonSQL?ref=badge_shield)
 
 A SQL-like query language for JSON objects.
 
@@ -217,3 +218,6 @@ console.log('======RESULT 1\n',res);
     CreateDate: '2016-05-24T06:50:25.584Z',
     Desc: 'xfsstd' } ]
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frockdragon%2FjsonSQL.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frockdragon%2FjsonSQL?ref=badge_large)
